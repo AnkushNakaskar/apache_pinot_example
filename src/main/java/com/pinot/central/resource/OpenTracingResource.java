@@ -1,6 +1,5 @@
 package com.pinot.central.resource;
 
-import io.swagger.v3.oas.annotations.Operation;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -23,7 +22,6 @@ public class OpenTracingResource {
 
     @GET
     @Path("/{event}")
-    @Operation(summary = "API to test open tracing with different scenarios",description = "This API is used to test open tracing with different scenarios like normal flow, queue, memq, api call and thread")
     public Response openTracingTesting(@PathParam("event") final String event) {
         log.info("openTelemetry is  {}","start");
 

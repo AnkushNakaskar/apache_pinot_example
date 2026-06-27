@@ -1,7 +1,6 @@
 package com.pinot.central;
 
-import io.appform.opentracing.TracingManager;
-import io.appform.opentracing.TracingOptions;
+import com.pinot.central.resource.OpenTracingResource;
 import io.dropwizard.Application;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.ResourceConfigurationSourceProvider;
@@ -25,9 +24,7 @@ public class OpenTracingApp extends Application<BasicConfiguration> {
     @Override
     public void run(final BasicConfiguration basicConfiguration,
                     final Environment environment) {
-        TracingOptions tracingOptions = new TracingOptions.TracingOptionsBuilder().parameterCaptureEnabled(true)
-                .build();
-        TracingManager.initialize(tracingOptions);
+        environment.jersey().register(new OpenTracingResource());
 
     }
 
@@ -40,6 +37,7 @@ public class OpenTracingApp extends Application<BasicConfiguration> {
 
         bootstrap.addBundle(new MultiPartBundle());
         bootstrap.setConfigurationSourceProvider(new ResourceConfigurationSourceProvider());
+
         super.initialize(bootstrap);
     }
 
